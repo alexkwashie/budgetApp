@@ -19,11 +19,6 @@ var UICon = (function() {
 
     var ctrlAddItem = function() {
 
-        // Get the field input
-
-        // Add the item to the bugdet
-
-        // Add the item to list
 
     }
 
@@ -32,15 +27,34 @@ var UICon = (function() {
 
 
 
-var controller = (function(budgetCtrl, UI_Con) {
+var controller = (function(budgetCtrl, UICon) {
 
-    var z = budgetCtrl.publicTest(1);
 
-    return {
+    var Evnt = function() {
+        // Get the field input
 
-        anPublic: function() {
-            console.log(z);
-        }
+        // Add the item to the bugdet
+
+        // Add the item to UI list
+
+        // Calculate the budget
+
+        // Display the budget UI
+        console.log('it works');
     }
+
+
+    document.querySelector('.add__btn').addEventListener('click', Evnt);
+
+
+    document.addEventListener('keypress', function(event) {
+        //the Which keyward is meant for old browsers. 
+        if (event.keyCode === 13 || event.which === '13') {
+
+            Evnt();
+        }
+
+    });
+
 
 })(budgetControlla, UICon);
