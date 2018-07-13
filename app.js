@@ -5,17 +5,37 @@ var budgetControlla = (function() {
 
 var UICon = (function() {
 
+    //Put the document selectors in a Variable object you dont keep typing it
+    //Note: This is a private Object
+    var DOMstrings = {
+        inputType: '.add__type',
+        inputDesc: '.add__description',
+        inputVal: '.add__value',
+        inputbtn: '.add__btn'
+
+
+    }
+
+
     return {
         getinput: function() {
 
             return {
-                type: document.querySelector('.add__type').value,
-                desc: document.querySelector('.add__description').value,
-                value: document.querySelector('.add__value').value
+
+                type: document.querySelector(DOMstrings.inputType).value,
+                desc: document.querySelector(DOMstrings.inputDesc).value,
+                valuep: document.querySelector(DOMstrings.inputVal).value
 
             };
+
+
+        },
+
+        //Make the DOMString object pucblic to use in other codes
+        getDOMStrings: function() {
+            return DOMstrings
         }
-    }
+    };
 
 
 })();
@@ -24,6 +44,7 @@ var UICon = (function() {
 
 var controller = (function(budgetCtrl, UICon) {
 
+    var Dom = UICon.getDOMStrings();
 
     var Evnt = function() {
         // Get the field input
@@ -35,11 +56,11 @@ var controller = (function(budgetCtrl, UICon) {
         // Calculate the budget
 
         // Display the budget UI
-        console.log(input);
+        document.querySelector('.item__value').innerHTML = input.valuep;
     }
 
 
-    document.querySelector('.add__btn').addEventListener('click', Evnt);
+    document.querySelector(Dom.inputbtn).addEventListener('click', Evnt);
 
 
     document.addEventListener('keypress', function(event) {
