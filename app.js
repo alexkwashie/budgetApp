@@ -24,7 +24,7 @@ var UICon = (function() {
 
                 type: document.querySelector(DOMstrings.inputType).value,
                 desc: document.querySelector(DOMstrings.inputDesc).value,
-                valuep: document.querySelector(DOMstrings.inputVal).value
+                value: document.querySelector(DOMstrings.inputVal).value
 
             };
 
@@ -44,11 +44,28 @@ var UICon = (function() {
 
 var controller = (function(budgetCtrl, UICon) {
 
+
     var Dom = UICon.getDOMStrings();
 
-    var Evnt = function() {
+    var setUpEventlistner = function() {
+        document.querySelector(Dom.inputbtn).addEventListener('click', ctrlAddItem);
+
+        document.addEventListener('keypress', function(event) {
+            //the 'Which' keyward is meant for old browsers. 
+            if (event.keyCode === 13 || event.which === '13') {
+
+                ctrlAddItem();
+            }
+
+        });
+
+    };
+
+
+    var ctrlAddItem = function() {
         // Get the field input
-        var input = UICon.getinput();
+        console.log(UICon.getinput().desc);
+
         // Add the item to the bugdet
 
         // Add the item to UI list
@@ -56,21 +73,22 @@ var controller = (function(budgetCtrl, UICon) {
         // Calculate the budget
 
         // Display the budget UI
-        document.querySelector('.item__value').innerHTML = input.valuep;
+
+    }
+
+    //Setup a public initialization funcftion to call setUpeventlistener from outside the controller function
+
+    return {
+        init: function() {
+
+            console.log('all done');
+            setUpEventlistner();
+        }
+
     }
 
 
-    document.querySelector(Dom.inputbtn).addEventListener('click', Evnt);
-
-
-    document.addEventListener('keypress', function(event) {
-        //the Which keyward is meant for old browsers. 
-        if (event.keyCode === 13 || event.which === '13') {
-
-            Evnt();
-        }
-
-    });
-
-
 })(budgetControlla, UICon);
+
+
+controller.init();
