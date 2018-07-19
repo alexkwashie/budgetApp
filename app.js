@@ -28,19 +28,32 @@ var budgetControlla = (function() {
     return {
         addItem: function(type, des, val) {
 
-            var newItem;
+            var newItem, ID;
 
-            ID = 0;
+            //[1 2 3 4 5], next ID = 6
+            //[1  3 4 6 8 ], next ID = 9
 
+            //Creat new ID
+            ID = data.allItem[type][data.allItem[type].length - 1];
+
+            //get last Id and add 1 to it
+            ID.id + 1;
+
+
+            //Create new item based on 'exp' or 'inc' type
             if (newItem === 'exp') {
                 newItem = new Expense(ID, des, val);
-            } else {
+            } else if (newItem === 'inc') {
                 newItem = new Income(ID, des, val);
 
-                data.allItem[type].push(newItem);
-
-                return newItem;
             }
+
+            //push it into our data structure
+            data.allItem[type].push(newItem);
+
+            //Return the new element
+            return newItem;
+
         }
     };
 })();
@@ -110,9 +123,10 @@ var controller = (function(budgetCtrl, UICon) {
 
     var ctrlAddItem = function() {
         // Get the field input
-
+        var input = UICon.getinput();
 
         // Add the item to the bugdet
+        budgetControlla.addItem(input.type, input.desc, input.value);
 
         // Add the item to UI list
 
