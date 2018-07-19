@@ -1,6 +1,52 @@
 var budgetControlla = (function() {
+    //Use a function constructure to collect Expense data
+    var Expense = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
 
+    var Income = function(id, description, value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
+    };
+
+    var data = {
+        allItem: {
+            exp: [],
+            inc: []
+        },
+
+        totals: {
+            exp: 0,
+            inc: 0
+        }
+    };
+
+
+    return {
+        addItem: function(type, des, val) {
+
+            var newItem;
+
+            ID = 0;
+
+            if (newItem === 'exp') {
+                newItem = new Expense(ID, des, val);
+            } else {
+                newItem = new Income(ID, des, val);
+
+                data.allItem[type].push(newItem);
+
+                return newItem;
+            }
+        }
+    };
 })();
+
+
+
 
 
 var UICon = (function() {
@@ -64,7 +110,7 @@ var controller = (function(budgetCtrl, UICon) {
 
     var ctrlAddItem = function() {
         // Get the field input
-        console.log(UICon.getinput().desc);
+
 
         // Add the item to the bugdet
 
