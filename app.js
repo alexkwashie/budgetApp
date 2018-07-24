@@ -13,7 +13,7 @@ var budgetControlla = (function() {
     };
 
     var data = {
-        allItem: {
+        allItems: {
             exp: [],
             inc: []
         },
@@ -33,28 +33,34 @@ var budgetControlla = (function() {
             //[1 2 3 4 5], next ID = 6
             //[1  3 4 6 8 ], next ID = 9
 
-            //Creat new ID
-            ID = data.allItem[type][data.allItem[type].length - 1];
+            //Creat new ID  
+            if (data.allItems[type].length > 0) {
 
-            //get last Id and add 1 to it
-            ID.id + 1;
-
+                ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            } else {
+                ID = 0;
+            }
 
             //Create new item based on 'exp' or 'inc' type
-            if (newItem === 'exp') {
+            if (type === 'exp') {
                 newItem = new Expense(ID, des, val);
-            } else if (newItem === 'inc') {
+            } else if (type === 'inc') {
                 newItem = new Income(ID, des, val);
 
             }
 
             //push it into our data structure
-            data.allItem[type].push(newItem);
+            data.allItems[type].push(newItem);
 
             //Return the new element
             return newItem;
 
+        },
+
+        testing: function() {
+            console.log(ID);
         }
+
     };
 })();
 
@@ -122,11 +128,14 @@ var controller = (function(budgetCtrl, UICon) {
 
 
     var ctrlAddItem = function() {
+
+        var input, newItem;
+
         // Get the field input
-        var input = UICon.getinput();
+        input = UICon.getinput();
 
         // Add the item to the bugdet
-        budgetControlla.addItem(input.type, input.desc, input.value);
+        newItem = budgetControlla.addItem(input.type, input.desc, input.value);
 
         // Add the item to UI list
 
