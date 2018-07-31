@@ -34,9 +34,11 @@ var budgetControlla = (function() {
             //[1  3 4 6 8 ], next ID = 9
 
             //Creat new ID 
-            ID = data.allitems[type][data.allitems[type].length - 1].id + 1;
-
-            ID = 0;
+            if (data.allItems[type].length > 0) {
+                ID = data.allItems[type][data.allItems[type].length - 1].id + 1;
+            } else {
+                ID = 0;
+            }
 
             //Create new item based on 'exp' or 'inc' type
             if (type === 'exp') {
@@ -104,12 +106,14 @@ var UICon = (function() {
 
 
 
-var controller = (function(budgetCtrl, UICon) {
+var controller = (function(budgetCtrl, UICtrl) {
 
 
-    var Dom = UICon.getDOMStrings();
+
 
     var setUpEventlistner = function() {
+        var Dom = UICon.getDOMStrings();
+
         document.querySelector(Dom.inputbtn).addEventListener('click', ctrlAddItem);
 
         document.addEventListener('keypress', function(event) {
@@ -126,13 +130,13 @@ var controller = (function(budgetCtrl, UICon) {
 
     var ctrlAddItem = function() {
 
-        var input;
+        var input, newItem;
 
         // Get the field input
-        input = UICon.getinput();
+        input = UICtrl.getinput();
 
         // Add the item to the bugdet
-        var newItem = budgetControlla.addItem(input.type, input.desc, input.value);
+        newItem = budgetCtrl.addItem(input.type, input.desc, input.value);
 
         // Add the item to UI list
 
